@@ -12,34 +12,36 @@ interface FaqItem {
 
 const faqs: FaqItem[] = [
   {
-    question: "¿Puedo viajar fuera de EE.UU. después de haber solicitado asilo?",
+    question: "¿Puedo viajar fuera de EE. UU. después de haber solicitado asilo?",
     answer:
       "En general, salir de Estados Unidos mientras tu solicitud de asilo está pendiente puede considerarse un abandono de tu caso. Antes de viajar, es indispensable consultar con tu asesor legal para evaluar tu situación específica.",
   },
   {
-    question: "¿En qué consiste el permiso de trabajo?",
+    question:
+      "¿Qué pasa si ingresé a Estados Unidos sin inspección (por la frontera) y quiero arreglar mis papeles?",
     answer:
-      "El permiso de trabajo (EAD) es una autorización que te permite trabajar legalmente en Estados Unidos mientras tu proceso migratorio está en trámite, según la categoría bajo la que aplicaste.",
+      "Depende de tus circunstancias particulares y de los lazos familiares que tengas en el país (por ejemplo, estar casado con un ciudadano estadounidense o tener hijos mayores de 21 años). También existen opciones como la Visa U o el asilo defensivo. Te recomendamos una evaluación personalizada con nuestros abogados.",
   },
   {
-    question: "¿Qué es la Visa U y quién puede solicitarla?",
+    question: "¿Cuánto tiempo tarda en aprobarse el permiso de trabajo (EAD)?",
     answer:
-      "La Visa U protege a víctimas de ciertos delitos que han colaborado con las autoridades en la investigación o enjuiciamiento del caso. Otorga estatus legal temporal y, eventualmente, puede abrir camino a la residencia.",
+      "Los tiempos de procesamiento varían drásticamente según la categoría migratoria (asilo, ajuste de estatus, TPS, etc.) y la carga de trabajo actual de USCIS. Puede tomar desde unos pocos meses hasta más de medio año.",
   },
   {
-    question: "¿Cuánto tiempo toma un proceso de naturalización?",
+    question:
+      "¿Solicitar ayudas del gobierno o estampillas de comida afecta mi proceso de residencia?",
     answer:
-      "El tiempo varía según el centro de servicio y la carga de casos, pero en promedio el proceso de naturalización toma entre 8 y 14 meses desde la presentación de la solicitud.",
+      'La regla de "Carga Pública" evalúa si es probable que dependas principalmente del gobierno para tu subsistencia. Ciertos beneficios de emergencia o recibidos por familiares directos suelen tener tratamientos distintos, pero es fundamental revisarlo caso por caso con un especialista.',
   },
   {
-    question: "¿Qué documentos necesito para una petición familiar?",
+    question: "¿Qué pasa si tengo una orden de deportación o salida voluntaria previa?",
     answer:
-      "Generalmente se requiere prueba de la relación familiar, estatus migratorio del peticionario, actas civiles apostilladas y evidencia de solvencia económica. Tu asesor te dará la lista exacta según tu caso.",
+      "En muchos casos es posible presentar una Moción para Reabrir ante la Corte de Inmigración si existen nuevas pruebas o cambios en la ley, o solicitar los perdones (waivers) migratorios correspondientes si cumples con los requisitos.",
   },
   {
-    question: "¿Qué pasa si mi caso de asilo es negado?",
+    question: "¿Un residente permanente (Green Card) puede pedir a sus padres o hermanos?",
     answer:
-      "Dependiendo de cómo se presentó el caso, existen opciones como apelación ante la Junta de Apelaciones de Inmigración (BIA) o revisión judicial. Es importante actuar dentro de los plazos legales establecidos.",
+      "No de manera directa. Los residentes permanentes solo pueden solicitar a sus cónyuges e hijos solteros. Para solicitar a padres o hermanos, el peticionario debe ser obligatoriamente ciudadano estadounidense mayor de 21 años.",
   },
 ];
 
@@ -100,9 +102,9 @@ export default function FAQSection() {
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="mx-auto grid max-w-3xl grid-cols-1 gap-4">
           {faqs.map((item, i) => (
-            <Reveal key={item.question} delay={(i % 2) * 0.08}>
+            <Reveal key={item.question} delay={i * 0.06}>
               <AccordionItem
                 item={item}
                 isOpen={openIndex === i}
