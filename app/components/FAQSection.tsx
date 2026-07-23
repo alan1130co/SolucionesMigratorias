@@ -103,15 +103,15 @@ export default function FAQSection() {
 
   return (
     <section id="faq" className="bg-surface px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
-        <Reveal className="mb-14 text-center">
+      <div className="mx-auto max-w-7xl">
+        <Reveal className="mb-16 text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold">
             Resolvemos tus Dudas
           </span>
-          <h2 className="mt-3 font-serif text-4xl text-slate-900">
-            Preguntas Frecuentes
+          <h2 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-6xl">
+            Preguntas <span className="font-serif italic text-gold">Frecuentes</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-600">
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-slate-600">
             Respuestas claras a las consultas más comunes sobre procesos
             migratorios en Estados Unidos.
           </p>

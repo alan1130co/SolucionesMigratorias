@@ -47,8 +47,8 @@ export default function CollaboratorValidator() {
             <ShieldCheck size={14} />
             Verificación de Identidad
           </span>
-          <h2 className="mt-3 font-serif text-4xl text-slate-900">
-            Validador de Colaboradores
+          <h2 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-6xl">
+            Validador de <span className="font-serif italic text-gold">Colaboradores</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-slate-600">
             Ingresa el Número ID que aparece en el carné de tu asesor:
@@ -58,7 +58,7 @@ export default function CollaboratorValidator() {
         <Reveal delay={0.1}>
           <form
             onSubmit={handleSubmit}
-            className="mt-10 flex flex-col gap-3 rounded-2xl border border-gold/10 bg-[#FAFAFA] p-3 shadow-sm sm:flex-row"
+            className="mt-10 flex flex-col gap-3 rounded-2xl border border-gold/10 bg-surface p-3 shadow-sm sm:flex-row"
           >
             <input
               type="text"

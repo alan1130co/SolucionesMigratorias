@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { Pause, Play } from "lucide-react";
 import { Reveal } from "./motion/Reveal";
 
@@ -56,11 +55,7 @@ function ShortCard({ short }: { short: Short }) {
   };
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.015 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group relative aspect-9/16 w-full overflow-hidden rounded-2xl border border-gold/10 bg-slate-900 shadow-sm"
-    >
+    <div className="group relative aspect-9/16 w-full overflow-hidden rounded-2xl border border-gold/10 bg-slate-900 shadow-sm">
       <video
         ref={videoRef}
         src={short.video}
@@ -69,11 +64,11 @@ function ShortCard({ short }: { short: Short }) {
         muted
         playsInline
         onClick={togglePlay}
-        className="h-full w-full cursor-pointer object-cover"
+        className="h-full w-full cursor-pointer object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
 
       {/* Overlay de degradado para legibilidad */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-black/40" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/80 via-black/5 to-black/40" />
 
       {/* Título superpuesto */}
       <p className="pointer-events-none absolute inset-x-0 bottom-0 p-4 text-sm font-semibold leading-snug text-white">
@@ -90,22 +85,22 @@ function ShortCard({ short }: { short: Short }) {
       >
         {isPlaying ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
       </button>
-    </motion.div>
+    </div>
   );
 }
 
 export default function ShortsSection() {
   return (
     <section id="shorts" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
-        <Reveal className="mb-14 text-center">
+      <div className="mx-auto max-w-7xl">
+        <Reveal className="mb-16 text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold">
             Contenido Institucional
           </span>
-          <h2 className="mt-3 font-serif text-4xl text-slate-900">
-            Shorts
+          <h2 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-6xl">
+            <span className="font-serif italic text-gold">Shorts</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-600">
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-slate-600">
             Videos cortos con explicaciones claras sobre procesos migratorios,
             directamente de nuestro equipo legal.
           </p>

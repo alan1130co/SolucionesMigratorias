@@ -74,15 +74,16 @@ function TextTestimonials() {
 export default function ReviewsGrid({ reviews }: ReviewsGridProps) {
   return (
     <section id="casos" className="bg-background px-4 py-24">
-      <div className="mx-auto max-w-6xl">
-        <Reveal className="mb-14 text-center">
+      <div className="mx-auto max-w-7xl">
+        <Reveal className="mb-16 text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold">
             Testimonios
           </span>
-          <h2 className="mt-3 font-serif text-4xl text-foreground">
-            Lo Que Dicen Nuestros Clientes
+          <h2 className="mt-3 text-4xl font-extrabold text-foreground sm:text-6xl">
+            Lo Que Dicen Nuestros{" "}
+            <span className="font-serif italic text-gold">Clientes</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-foreground/60">
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-foreground/60">
             Historias reales de familias que confiaron en nosotros para sus
             procesos migratorios.
           </p>
@@ -98,19 +99,15 @@ export default function ReviewsGrid({ reviews }: ReviewsGridProps) {
                 delay={i * 0.05}
                 className="break-inside-avoid"
               >
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="overflow-hidden rounded-2xl border border-gold/10"
-                >
+                <div className="group overflow-hidden rounded-2xl border border-gold/10">
                   <Image
                     src={review.src}
                     alt={review.alt}
                     width={600}
                     height={800}
-                    className="h-auto w-full object-cover"
+                    className="h-auto w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                </motion.div>
+                </div>
               </Reveal>
             ))}
           </div>

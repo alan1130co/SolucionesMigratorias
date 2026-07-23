@@ -22,33 +22,32 @@ const areas = [
 export default function LawyerCard() {
   return (
     <section id="abogado" className="bg-background px-4 py-24">
-      <div className="mx-auto max-w-5xl">
-        <Reveal className="mb-14 text-center">
+      <div className="mx-auto max-w-7xl">
+        <Reveal className="mb-16 text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold">
             Quiénes Somos
           </span>
-          <h2 className="mt-3 font-serif text-4xl text-foreground">
-            Nuestro Abogado Principal
+          <h2 className="mt-3 text-4xl font-extrabold text-foreground sm:text-6xl">
+            Nuestro Abogado <span className="font-serif italic text-gold">Principal</span>
           </h2>
         </Reveal>
 
         <Reveal delay={0.1}>
           <motion.div
             whileHover={{
-              scale: 1.01,
               boxShadow: "0 0 50px rgba(197, 160, 89, 0.1)",
             }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="flex flex-col overflow-hidden rounded-3xl border border-gold/10 bg-surface md:flex-row"
+            className="group flex flex-col overflow-hidden rounded-3xl border border-gold/10 bg-surface md:flex-row"
           >
             {/* Panel de video del abogado */}
-            <div className="relative min-h-[350px] w-full overflow-hidden bg-black/20 md:w-2/5">
+            <div className="relative min-h-87.5 w-full overflow-hidden bg-black/20 md:w-2/5">
               <video
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               >
                 <source
                   src="/videos/abogado_principal_soluciones_migratorias.mp4"

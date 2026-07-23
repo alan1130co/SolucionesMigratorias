@@ -34,12 +34,13 @@ export default function Home() {
 
       {/* ── Contacto / CTA ────────────────────────────────────── */}
       <section id="contacto" className="bg-white px-4 py-24 border-t border-slate-200">
-        <Reveal className="mx-auto max-w-3xl text-center">
+        <Reveal className="mx-auto max-w-4xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold">
             Contáctanos
           </span>
-          <h2 className="mt-3 mb-6 font-serif text-4xl text-slate-900">
-            ¿Listo para Comenzar tu Proceso?
+          <h2 className="mt-3 mb-6 text-4xl font-extrabold text-slate-900 sm:text-6xl">
+            ¿Listo para Comenzar{" "}
+            <span className="font-serif italic text-gold">tu Proceso?</span>
           </h2>
           <p className="mb-10 text-base leading-relaxed text-slate-600">
             Agenda tu consulta hoy. Nuestro equipo de profesionales está listo para evaluar tu caso y brindarte una hoja de ruta clara.
