@@ -40,17 +40,20 @@ export default function CollaboratorValidator() {
   };
 
   return (
-    <section id="validador" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
+    <section
+      id="validador"
+      className="flex min-h-[90vh] w-full flex-col justify-center bg-white px-4 py-24 sm:min-h-screen sm:px-6 lg:px-8"
+    >
       <div className="mx-auto max-w-2xl">
         <Reveal className="text-center">
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-gold">
             <ShieldCheck size={14} />
             Verificación de Identidad
           </span>
-          <h2 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-6xl">
-            Validador de <span className="font-serif italic text-gold">Colaboradores</span>
+          <h2 className="mt-3 text-5xl font-extrabold text-slate-900 sm:text-6xl md:text-7xl lg:text-8xl">
+            Validador de <span className="font-extrabold text-gold">Colaboradores</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-slate-600">
+          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-slate-600 sm:text-lg">
             Ingresa el Número ID que aparece en el carné de tu asesor:
           </p>
         </Reveal>

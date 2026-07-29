@@ -21,11 +21,12 @@ interface PracticeArea {
   };
 }
 
-// Placeholders temporales — reemplazar por los assets finales por área.
-const PLACEHOLDER_VIDEO =
-  "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-const placeholderPoster = (label: string) =>
-  `https://placehold.co/1920x1080/0A0A0A/C5A059/png?text=${encodeURIComponent(label)}`;
+// TODO: reemplazar por los videos/fotos institucionales reales de cada área.
+// Mientras tanto: video de muestra genérico + poster de Unsplash temático.
+const PLACEHOLDER_VIDEO = "https://www.w3schools.com/html/mov_bbb.mp4";
+
+const unsplashPoster = (photoId: string) =>
+  `https://images.unsplash.com/photo-${photoId}?q=80&w=1920&auto=format&fit=crop`;
 
 const practiceAreas: Record<string, PracticeArea> = {
   "eb2-niw": {
@@ -40,7 +41,7 @@ const practiceAreas: Record<string, PracticeArea> = {
       "Construimos tu petición con evidencia documental sólida —publicaciones, cartas de recomendación, reconocimientos y proyección de impacto— para maximizar la probabilidad de aprobación ante USCIS.",
     ],
     media: {
-      poster: placeholderPoster("Visa EB-2 NIW"),
+      poster: unsplashPoster("1519389950473-47ba0277781c"),
       video: PLACEHOLDER_VIDEO,
     },
   },
@@ -56,7 +57,7 @@ const practiceAreas: Record<string, PracticeArea> = {
       "El plazo de un año desde tu última entrada a Estados Unidos es crítico. Te orientamos desde el primer momento para proteger tu elegibilidad y evitar errores procesales irreversibles.",
     ],
     media: {
-      poster: placeholderPoster("Asilo Politico"),
+      poster: unsplashPoster("1589829545856-d10d557cf95f"),
       video: PLACEHOLDER_VIDEO,
     },
   },
@@ -71,7 +72,7 @@ const practiceAreas: Record<string, PracticeArea> = {
       "Identificamos la vía más eficiente según tu situación migratoria actual, incluyendo waivers de inadmisibilidad cuando son necesarios para completar el proceso sin separar a tu familia.",
     ],
     media: {
-      poster: placeholderPoster("Peticiones Familiares"),
+      poster: unsplashPoster("1476703993599-0035a21b17a9"),
       video: PLACEHOLDER_VIDEO,
     },
   },
@@ -86,7 +87,7 @@ const practiceAreas: Record<string, PracticeArea> = {
       "Las peticiones VAWA permiten a cónyuges, hijos y padres abusados por un ciudadano o residente permanente autopeticionar su residencia sin depender del agresor, con absoluta confidencialidad.",
     ],
     media: {
-      poster: placeholderPoster("Visa U y VAWA"),
+      poster: unsplashPoster("1517245386807-bb43f82c33c4"),
       video: PLACEHOLDER_VIDEO,
     },
   },
@@ -101,7 +102,55 @@ const practiceAreas: Record<string, PracticeArea> = {
       "Acompañamos al equipo de recursos humanos en la gestión de expedientes, plazos de renovación y auditorías, minimizando el riesgo de interrupciones en la fuerza laboral internacional.",
     ],
     media: {
-      poster: placeholderPoster("Inmigracion Corporativa"),
+      poster: unsplashPoster("1454165804606-c3d57bc86b40"),
+      video: PLACEHOLDER_VIDEO,
+    },
+  },
+  "visas-de-trabajo": {
+    title: "Visas de Trabajo",
+    shortTitle: "Visas de Trabajo",
+    description:
+      "Patrocinio laboral y visas de empleo para profesionales, trabajadores calificados y talento internacional que buscan trabajar legalmente en Estados Unidos.",
+    serviceType: "Employment-Based Visa Sponsorship",
+    content: [
+      "Evaluamos junto a ti y a tu empleador la categoría de visa más adecuada —H-1B, L-1, TN, O-1, entre otras— según tu perfil profesional y la estructura de la empresa patrocinadora.",
+      "Preparamos la documentación y coordinamos con el empleador los pasos de certificación laboral cuando el proceso lo requiere, cuidando los plazos y requisitos específicos de cada categoría.",
+      "Damos seguimiento a renovaciones, cambios de estatus y extensiones, para que tu situación migratoria laboral se mantenga siempre en regla.",
+    ],
+    media: {
+      poster: unsplashPoster("1497366754035-f200968a6e72"),
+      video: PLACEHOLDER_VIDEO,
+    },
+  },
+  "visa-k1": {
+    title: "Visa de Prometido K-1",
+    shortTitle: "Visa K-1",
+    description:
+      "Proceso migratorio para prometidos de ciudadanos estadounidenses que desean ingresar a Estados Unidos para contraer matrimonio y solicitar posteriormente el ajuste de estatus.",
+    serviceType: "Fiancé(e) Visa Petition",
+    content: [
+      "Preparamos la petición I-129F ante USCIS, documentando la relación de buena fe y cumpliendo con los requisitos de elegibilidad del ciudadano peticionario y su prometido(a).",
+      "Te orientamos durante todo el proceso consular, la entrevista y los 90 días posteriores a la entrada en Estados Unidos, en los que debe celebrarse el matrimonio.",
+      "Una vez casados, te acompañamos en la solicitud de ajuste de estatus para obtener la residencia permanente condicional.",
+    ],
+    media: {
+      poster: unsplashPoster("1519741497674-611481863552"),
+      video: PLACEHOLDER_VIDEO,
+    },
+  },
+  "perdones-waivers": {
+    title: "Perdones y Waivers",
+    shortTitle: "Perdones y Waivers",
+    description:
+      "Perdones de inadmisibilidad (waivers) para superar obstáculos migratorios como presencia ilegal, entradas previas sin inspección u otras causales que impiden obtener una visa o residencia.",
+    serviceType: "Waiver of Inadmissibility Petition",
+    content: [
+      "Identificamos la causal de inadmisibilidad específica en tu caso y evaluamos si calificas para un perdón provisional (I-601A) o un perdón tradicional (I-601) según tu situación.",
+      "Documentamos el estándar de dificultad extrema ('extreme hardship') hacia tu familiar calificado —cónyuge o padres ciudadanos o residentes— con evidencia médica, económica y psicológica sólida.",
+      "Te guiamos en la coordinación entre el proceso de perdón y el proceso consular o de ajuste de estatus correspondiente, para minimizar tiempos de separación familiar.",
+    ],
+    media: {
+      poster: unsplashPoster("1450101499163-c8848c66ca85"),
       video: PLACEHOLDER_VIDEO,
     },
   },
@@ -116,7 +165,39 @@ const practiceAreas: Record<string, PracticeArea> = {
       "Te preparamos para el examen cívico y de inglés, y te representamos ante USCIS si surgen complicaciones durante la entrevista.",
     ],
     media: {
-      poster: placeholderPoster("Naturalizacion"),
+      poster: unsplashPoster("1568992687947-868a62a9f521"),
+      video: PLACEHOLDER_VIDEO,
+    },
+  },
+  "defensa-en-corte": {
+    title: "Defensa en Corte de Inmigración",
+    shortTitle: "Defensa en Corte",
+    description:
+      "Representación legal ante la Corte de Inmigración para quienes enfrentan un proceso de remoción (deportación), incluyendo solicitudes de alivio y apelaciones.",
+    serviceType: "Removal Defense Representation",
+    content: [
+      "Te representamos en cada audiencia ante el juez de inmigración, evaluando todas las formas de alivio disponibles: asilo defensivo, cancelación de remoción, ajuste de estatus y otras protecciones.",
+      "Preparamos tu caso con evidencia documental y testimonial sólida, y coordinamos contigo los plazos críticos de cada etapa del proceso para no perder oportunidades procesales.",
+      "Si tu caso lo requiere, te asistimos con apelaciones ante la Junta de Apelaciones de Inmigración (BIA) o revisión judicial ante las cortes federales.",
+    ],
+    media: {
+      poster: unsplashPoster("1505664194779-8beaceb93744"),
+      video: PLACEHOLDER_VIDEO,
+    },
+  },
+  "permisos-de-trabajo": {
+    title: "Permisos de Trabajo",
+    shortTitle: "Permisos de Trabajo",
+    description:
+      "Autorización de empleo (EAD) para residentes en trámite, solicitantes de asilo, beneficiarios de TPS y otras categorías migratorias elegibles.",
+    serviceType: "Employment Authorization Petition",
+    content: [
+      "Determinamos tu elegibilidad para solicitar el permiso de trabajo según tu categoría migratoria —asilo pendiente, ajuste de estatus, TPS, DACA, entre otras— y los plazos de espera aplicables.",
+      "Preparamos y presentamos el formulario I-765 con la documentación de soporte necesaria, dando seguimiento al trámite hasta la emisión de tu tarjeta.",
+      "Te orientamos también en las renovaciones oportunas, para evitar interrupciones en tu autorización de empleo.",
+    ],
+    media: {
+      poster: unsplashPoster("1521791136064-7986c2920216"),
       video: PLACEHOLDER_VIDEO,
     },
   },
@@ -235,7 +316,7 @@ export default async function PracticeAreaPage({ params }: Props) {
                   </GlowButton>
                   <a
                     href={`tel:${PHONE_TEL}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-gold/30 px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-gold"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-gold/30 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:scale-[1.03] hover:border-gold"
                   >
                     <Phone size={14} />
                     {PHONE_DISPLAY}

@@ -1,72 +1,46 @@
-import Header from "./components/Header";
-import HeroSection from "./components/sections/HeroSection";
-import ServicesGrid from "./components/ServicesGrid";
+import Hero from "./components/Hero";
+import Manifesto from "./components/Manifesto";
+import PracticeAreas from "./components/PracticeAreas";
+import OurApproach from "./components/OurApproach";
 import LawyerCard from "./components/LawyerCard";
-import ReviewsGrid, { ReviewImage } from "./components/ReviewsGrid";
+import Testimonials, { ReviewImage } from "./components/Testimonials";
 import CollaboratorValidator from "./components/CollaboratorValidator";
 import ShortsSection from "./components/ShortsSection";
 import FAQSection from "./components/FAQSection";
-import Footer from "./components/Footer";
-import { Reveal } from "./components/motion/Reveal";
-import { GlowButton } from "./components/ui/GlowButton";
-import { Phone, ArrowRight } from "lucide-react";
+import TransitionCTA from "./components/TransitionCTA";
+import FinalCTA from "./components/FinalCTA";
 
 const reviews: ReviewImage[] = [];
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#FAF9F6] text-slate-800">
-      {/* Header / Navbar */}
-      <Header />
+      {/* Hero: gradiente aurora + headline + CTA doble */}
+      <Hero />
 
-      {/* Hero Principal con Video Original */}
-      <HeroSection />
+      {/* Confianza/manifiesto: kicker + stats con count-up */}
+      <Manifesto />
+
+      {/* Áreas de Práctica */}
+      <PracticeAreas />
+
+      {/* Nuestro Enfoque: headline + dos columnas de texto */}
+      <OurApproach />
 
       {/* Secciones de Contenido */}
       <div className="bg-[#FAF9F6]">
-        <ServicesGrid />
         <LawyerCard />
         <CollaboratorValidator />
         <ShortsSection />
-        <ReviewsGrid reviews={reviews} />
+        <Testimonials reviews={reviews} />
         <FAQSection />
       </div>
 
-      {/* ── Contacto / CTA ────────────────────────────────────── */}
-      <section id="contacto" className="bg-white px-4 py-24 border-t border-slate-200">
-        <Reveal className="mx-auto max-w-4xl text-center">
-          <span className="text-xs font-semibold uppercase tracking-widest text-gold">
-            Contáctanos
-          </span>
-          <h2 className="mt-3 mb-6 text-4xl font-extrabold text-slate-900 sm:text-6xl">
-            ¿Listo para Comenzar{" "}
-            <span className="font-serif italic text-gold">tu Proceso?</span>
-          </h2>
-          <p className="mb-10 text-base leading-relaxed text-slate-600">
-            Agenda tu consulta hoy. Nuestro equipo de profesionales está listo para evaluar tu caso y brindarte una hoja de ruta clara.
-          </p>
-          <div className="flex flex-col justify-center gap-6 sm:flex-row">
-            <GlowButton
-              href="https://wa.me/+13054984470"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="solid"
-            >
-              Consultar tu caso gratis
-              <ArrowRight size={18} />
-            </GlowButton>
-            <a
-              href="tel:+13054984470"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-8 py-4 text-base font-semibold text-slate-800 transition-colors hover:border-gold hover:text-gold"
-            >
-              <Phone size={16} />
-              +1 (305) 498-4470
-            </a>
-          </div>
-        </Reveal>
-      </section>
+      {/* CTA de transición a pantalla completa */}
+      <TransitionCTA />
 
-      <Footer />
+      {/* CTA final de contacto + mini-formulario */}
+      <FinalCTA />
     </main>
   );
 }

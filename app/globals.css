@@ -13,11 +13,12 @@
   --color-brand-blue: #1B2D5B;
   --color-brand-gold: #C9A84C;
 
-  /* Luxury light UI tokens */
+  /* UI tokens: blanco/crema + azul marino institucional + acento dorado */
   --color-background: #FFFFFF;
   --color-surface: #FAFAFA;
   --color-gold: #C5A059;
   --color-foreground: #171717;
+  --color-navy: #1B2D5B;
 
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
@@ -41,4 +42,13 @@ body {
   button {
     cursor: none;
   }
+}
+
+/* Oculta la barra de scroll en carruseles horizontales (Testimonials, etc.) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

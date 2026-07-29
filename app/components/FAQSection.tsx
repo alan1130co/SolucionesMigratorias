@@ -13,36 +13,36 @@ interface FaqItem {
 
 const faqs: FaqItem[] = [
   {
-    question: "¿Puedo viajar fuera de EE. UU. después de haber solicitado asilo?",
+    question: "Una vez que ingreso a Estados Unidos, ¿en cuánto tiempo debo iniciar mi asilo?",
     answer:
-      "En general, salir de Estados Unidos mientras tu solicitud de asilo está pendiente puede considerarse un abandono de tu caso. Antes de viajar, es indispensable consultar con tu asesor legal para evaluar tu situación específica.",
+      "Tienes hasta 1 año desde tu llegada a EE. UU. para presentar tu solicitud de asilo. Pasado ese plazo puedes perder el derecho a pedirlo, salvo circunstancias excepcionales.",
   },
   {
     question:
-      "¿Qué pasa si ingresé a Estados Unidos sin inspección (por la frontera) y quiero arreglar mis papeles?",
+      ": Tengo mucho miedo de presentarme a la última audiencia, ¿es normal?",
     answer:
-      "Depende de tus circunstancias particulares y de los lazos familiares que tengas en el país (por ejemplo, estar casado con un ciudadano estadounidense o tener hijos mayores de 21 años). También existen opciones como la Visa U o el asilo defensivo. Te recomendamos una evaluación personalizada con nuestros abogados.",
+      "Es completamente normal sentir miedo antes de la audiencia final. Por eso te preparamos a fondo: practicamos tu historia, revisamos cada posible pregunta y te acompañamos para que llegues con seguridad.",
   },
   {
-    question: "¿Cuánto tiempo tarda en aprobarse el permiso de trabajo (EAD)?",
+    question: "¿Es importante ir con abogado a mi proceso de asilo?",
     answer:
-      "Los tiempos de procesamiento varían drásticamente según la categoría migratoria (asilo, ajuste de estatus, TPS, etc.) y la carga de trabajo actual de USCIS. Puede tomar desde unos pocos meses hasta más de medio año.",
+      "Sí. Un caso de asilo mal preparado no se puede repetir dos veces. Un abogado organiza tu evidencia correctamente y evita errores que pueden costarte la aprobación.",
   },
   {
     question:
-      "¿Solicitar ayudas del gobierno o estampillas de comida afecta mi proceso de residencia?",
+      "¿Cuáles son las fases por las que pasa una persona al someter su asilo?",
     answer:
-      'La regla de "Carga Pública" evalúa si es probable que dependas principalmente del gobierno para tu subsistencia. Ciertos beneficios de emergencia o recibidos por familiares directos suelen tener tratamientos distintos, pero es fundamental revisarlo caso por caso con un especialista.',
+      'En general son cuatro: presentar la solicitud (Formulario I-589), la toma de biometrías, la entrevista o audiencias ante el Tribunal de Inmigración, y la decisión final.',
   },
   {
-    question: "¿Qué pasa si tengo una orden de deportación o salida voluntaria previa?",
+    question: "¿Cuáles son los errores más comunes al someter el asilo?",
     answer:
-      "En muchos casos es posible presentar una Moción para Reabrir ante la Corte de Inmigración si existen nuevas pruebas o cambios en la ley, o solicitar los perdones (waivers) migratorios correspondientes si cumples con los requisitos.",
+      "Presentar la solicitud fuera de plazo, entregar evidencia incompleta o inconsistente, no traducir correctamente los documentos, y viajar fuera de EE. UU. mientras el caso está en trámite.",
   },
   {
-    question: "¿Un residente permanente (Green Card) puede pedir a sus padres o hermanos?",
+    question: "¿Cómo saber si el abogado tiene licencia para ejercer? ",
     answer:
-      "No de manera directa. Los residentes permanentes solo pueden solicitar a sus cónyuges e hijos solteros. Para solicitar a padres o hermanos, el peticionario debe ser obligatoriamente ciudadano estadounidense mayor de 21 años.",
+      "Puedes verificarlo en el colegio de abogados (Bar Association) del estado donde ejerce y en el EOIR eRegistry del Departamento de Justicia.",
   },
 ];
 
@@ -62,7 +62,7 @@ function AccordionItem({
     <div className="overflow-hidden rounded-2xl border border-gold/10 bg-white">
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-300 hover:bg-gold/5"
         aria-expanded={isOpen}
       >
         <span className="font-serif text-base text-slate-900 sm:text-lg">
@@ -102,16 +102,19 @@ export default function FAQSection() {
     setOpenQuestion((current) => (current === question ? null : question));
 
   return (
-    <section id="faq" className="bg-surface px-4 py-24 sm:px-6 lg:px-8">
+    <section
+      id="faq"
+      className="flex min-h-[90vh] w-full flex-col justify-center bg-surface px-4 py-24 sm:min-h-screen sm:px-6 lg:px-8"
+    >
       <div className="mx-auto max-w-7xl">
         <Reveal className="mb-16 text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold">
             Resolvemos tus Dudas
           </span>
-          <h2 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-6xl">
+          <h2 className="mt-3 text-5xl font-extrabold text-slate-900 sm:text-6xl md:text-7xl lg:text-8xl">
             Preguntas <span className="font-serif italic text-gold">Frecuentes</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-slate-600">
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
             Respuestas claras a las consultas más comunes sobre procesos
             migratorios en Estados Unidos.
           </p>

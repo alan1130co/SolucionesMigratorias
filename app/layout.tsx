@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import CustomCursor from "./components/CustomCursor";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import PageTransitionProvider from "./components/PageTransitionProvider";
 import "./globals.css";
 
@@ -42,7 +44,9 @@ export default function RootLayout({
         className={`${inter.variable} ${playfair.variable} bg-background text-foreground antialiased`}
       >
         <CustomCursor />
+        <Header />
         <PageTransitionProvider>{children}</PageTransitionProvider>
+        <Footer />
       </body>
     </html>
   );

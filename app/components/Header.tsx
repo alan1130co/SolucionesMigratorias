@@ -1,17 +1,32 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { Menu, X, MessageCircle } from "lucide-react";
+import { GlowButton } from "./ui/GlowButton";
 
 const links = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "Servicios", href: "#servicios" },
-  { label: "Casos", href: "#casos" },
-  { label: "Nosotros", href: "#abogado" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Inicio", href: "/#inicio" },
+  { label: "Servicios", href: "/#servicios" },
+  { label: "Casos", href: "/casos-de-exito" },
+  { label: "Nosotros", href: "/sobre-nosotros" },
+  { label: "Contacto", href: "/contacto" },
 ];
+
+const WHATSAPP_NUMBER = "+13054984470";
+
+const mobileMenu: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
+};
+
+const mobileLink: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -31,87 +46,116 @@ export default function Header() {
       transition={{ duration: 0.7, ease: "easeOut" }}
       className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-slate-200 bg-white/85 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
+          ? "border-b border-navy-100 bg-white/85 backdrop-blur-md shadow-[0_4px_20px_rgba(27,45,91,0.08)]"
           : "bg-transparent border-none shadow-none"
       }`}
     >
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 sm:h-28">
+      {/* ── Scrim fijo para garantizar contraste sobre la foto del Hero ── */}
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-x-0 top-0 z-0 h-32.5 transition-opacity duration-300 ${
+          scrolled ? "opacity-0" : "opacity-100"
+        }`}
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(10,12,18,0.75) 0%, rgba(10,12,18,0.35) 70%, transparent 100%)",
+        }}
+      />
+
+      <div
+        className={`relative z-10 mx-auto flex max-w-7xl items-center justify-between px-4 transition-all duration-300 sm:px-6 lg:px-8 ${
+          scrolled ? "h-24" : "h-28 sm:h-32"
+        }`}
+      >
 
         {/* ── Logo + Título flotante único ── */}
-        <a href="#inicio" className="group flex items-center gap-3">
+        <Link href="/#inicio" className="group flex shrink-0 items-center gap-5">
+          <Image
+            src="/images/logo_SM_icon_transparente.png"
+            alt="SM Soluciones Migratorias"
+            width={382}
+            height={208}
+            priority
+            className="h-14 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-16"
+          />
           <span
-            className={`flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full ring-1 transition-all duration-300 group-hover:ring-gold sm:h-18 sm:w-18 ${
-              scrolled ? "bg-white ring-slate-200" : "bg-neutral-900/80 ring-white/20"
+            className={`h-10 w-px shrink-0 transition-colors duration-300 sm:h-12 ${
+              scrolled ? "bg-navy-900/15" : "bg-white/15"
             }`}
-          >
-            <Image
-              src="/images/logo_SM.png"
-              alt="Soluciones Migratorias"
-              width={72}
-              height={72}
-              priority
-              className="h-14 w-14 object-contain sm:h-16 sm:w-16"
-            />
+          />
+          <span className="flex flex-col leading-tight">
+            <span className="whitespace-nowrap text-[16px] font-semibold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
+              Soluciones
+            </span>
+            <span className="whitespace-nowrap text-[16px] font-semibold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
+              Migratorias
+            </span>
           </span>
-          <span
-            className={`font-serif text-xl font-bold tracking-tight transition-colors group-hover:text-gold sm:text-2xl ${
-              scrolled ? "text-slate-900" : "text-white"
-            }`}
-          >
-            Soluciones Migratorias
-          </span>
-        </a>
+        </Link>
 
         {/* ── Navegación Desktop ── */}
         <nav className="hidden items-center gap-8 lg:gap-10 md:flex">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className={`group relative text-base font-semibold tracking-wide transition-colors hover:text-gold lg:text-lg ${
-                scrolled ? "text-slate-700" : "text-gray-200"
+                scrolled ? "text-navy-700" : "text-gray-200"
               }`}
             >
               {link.label}
               <span className="absolute -bottom-1 left-0 h-0.5 w-full origin-left scale-x-0 bg-gold transition-transform duration-300 ease-out group-hover:scale-x-100" />
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* ── Toggle Móvil ── */}
-        <button
-          className={`p-2 transition-colors hover:text-gold md:hidden ${
-            scrolled ? "text-slate-900" : "text-white"
-          }`}
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-label="Abrir menú"
-        >
-          {isOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        <div className="flex items-center">
+          <button
+            className={`p-2 transition-colors hover:text-gold md:hidden ${
+              scrolled ? "text-navy-900" : "text-white"
+            }`}
+            onClick={() => setIsOpen((prev) => !prev)}
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+          >
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
       </div>
 
-      {/* ── Menú Móvil ── */}
+      {/* ── Menú Móvil: overlay full-screen con stagger ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-slate-200 bg-white/95 px-6 py-6 shadow-xl backdrop-blur-xl md:hidden"
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            variants={mobileMenu}
+            className="fixed inset-0 top-0 left-0 z-40 flex h-dvh w-full flex-col items-center justify-center gap-8 bg-navy-900 md:hidden"
           >
-            <div className="flex flex-col gap-4">
-              {links.map((link) => (
-                <a
-                  key={link.href}
+            {links.map((link) => (
+              <motion.div key={link.href} variants={mobileLink}>
+                <Link
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-sm font-medium tracking-wide text-slate-700 transition-colors hover:text-gold"
+                  className="text-4xl font-serif font-bold tracking-tight text-white transition-colors hover:text-gold"
                 >
                   {link.label}
-                </a>
-              ))}
-            </div>
+                </Link>
+              </motion.div>
+            ))}
+
+            <motion.div variants={mobileLink} className="mt-4">
+              <GlowButton
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="solid"
+              >
+                Agendar Consulta
+                <MessageCircle size={18} />
+              </GlowButton>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

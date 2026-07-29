@@ -5,36 +5,38 @@ import { Scale, Star, Users } from "lucide-react";
 import { Reveal } from "./motion/Reveal";
 
 const credentials = [
-  { icon: Scale, text: "Especialista en Derecho Migratorio en EE.UU." },
-  { icon: Star, text: "Más de 10 años de experiencia en inmigración" },
-  { icon: Users, text: "Cientos de familias han confiado en nosotros" },
+  { icon: Scale, text: "Especialista en Casos de Asilo y Representación en Corte. " },
+  { icon: Star, text: "Más de 10 años defendiendo casos migratorios en EE. UU." },
+  { icon: Users, text: "Cientos de familias representadas con éxito" },
 ];
 
 const areas = [
-  "Asilo Político",
+  "Representación en Corte ",
   "Permiso de Trabajo",
   "Peticiones Familiares",
   "Visa U & VAWA",
-  "Naturalización",
-  "TPS",
 ];
 
 export default function LawyerCard() {
   return (
-    <section id="abogado" className="bg-background px-4 py-24">
+    <section
+      id="abogado"
+      className="flex min-h-[90vh] w-full flex-col justify-center bg-background px-4 py-24 sm:min-h-screen"
+    >
       <div className="mx-auto max-w-7xl">
         <Reveal className="mb-16 text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold">
             Quiénes Somos
           </span>
-          <h2 className="mt-3 text-4xl font-extrabold text-foreground sm:text-6xl">
-            Nuestro Abogado <span className="font-serif italic text-gold">Principal</span>
+          <h2 className="mt-3 text-5xl font-extrabold text-foreground sm:text-6xl md:text-7xl lg:text-8xl">
+            Nuestro Abogado de <span className="font-extrabold text-gold">Inmigración </span>
           </h2>
         </Reveal>
 
         <Reveal delay={0.1}>
           <motion.div
             whileHover={{
+              scale: 1.01,
               boxShadow: "0 0 50px rgba(197, 160, 89, 0.1)",
             }}
             transition={{ duration: 0.4, ease: "easeOut" }}
@@ -59,16 +61,13 @@ export default function LawyerCard() {
 
             <div className="flex flex-col justify-center p-10 md:w-3/5">
               <span className="mb-4 w-fit rounded-full bg-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold">
-                Abogado de Inmigración · Miami, FL
+                Abogado de Inmigración de Soluciones Migratorias SM
               </span>
               <h3 className="mb-4 font-serif text-2xl text-foreground">
-                Soluciones Migratorias SM
+                Nisael Santos Torres
               </h3>
               <p className="mb-8 text-sm leading-relaxed text-foreground/60">
-                Brindamos representación legal experta y personalizada para cada
-                etapa de tu proceso migratorio. Nuestro compromiso es
-                acompañarte con transparencia, dedicación y resultados
-                comprobados.
+                Doctor en Jurisprudencia por la Pontificia Universidad Católica de Puerto Rico. Abogado admitido por la American Bar Association (ABA), especializado en Derecho de Inmigración y registrado en el EOIR eRegistry del Departamento de Justicia de los Estados Unidos, con autorización para ejercer ante el Tribunal de Inmigración.
               </p>
 
               <div className="mb-8 flex flex-col gap-3">

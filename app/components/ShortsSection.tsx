@@ -11,31 +11,38 @@ interface Short {
   poster: string;
 }
 
-// Reemplazar por los clips verticales reales en public/videos/shorts/
+// TODO: reemplazar por los clips verticales reales del equipo legal.
+// Mientras tanto: video de muestra genérico + posters de Unsplash por tema.
+const PLACEHOLDER_VIDEO = "https://www.w3schools.com/html/mov_bbb.mp4";
+
 const shorts: Short[] = [
   {
     id: "asilo",
     title: "¿Qué es el Asilo Político?",
-    video: "/videos/shorts/short-asilo.mp4",
-    poster: "/images/shorts/short-asilo.jpg",
+    video: PLACEHOLDER_VIDEO,
+    poster:
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: "permiso-trabajo",
     title: "Permiso de Trabajo en 5 Pasos",
-    video: "/videos/shorts/short-permiso-trabajo.mp4",
-    poster: "/images/shorts/short-permiso-trabajo.jpg",
+    video: PLACEHOLDER_VIDEO,
+    poster:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: "visa-u",
     title: "Visa U: Protección para Víctimas",
-    video: "/videos/shorts/short-visa-u.mp4",
-    poster: "/images/shorts/short-visa-u.jpg",
+    video: PLACEHOLDER_VIDEO,
+    poster:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: "naturalizacion",
     title: "Camino a la Ciudadanía",
-    video: "/videos/shorts/short-naturalizacion.mp4",
-    poster: "/images/shorts/short-naturalizacion.jpg",
+    video: PLACEHOLDER_VIDEO,
+    poster:
+      "https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
@@ -91,16 +98,19 @@ function ShortCard({ short }: { short: Short }) {
 
 export default function ShortsSection() {
   return (
-    <section id="shorts" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
+    <section
+      id="shorts"
+      className="flex min-h-[90vh] w-full flex-col justify-center bg-white px-4 py-24 sm:min-h-screen sm:px-6 lg:px-8"
+    >
       <div className="mx-auto max-w-7xl">
         <Reveal className="mb-16 text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold">
             Contenido Institucional
           </span>
-          <h2 className="mt-3 text-4xl font-extrabold text-slate-900 sm:text-6xl">
+          <h2 className="mt-3 text-5xl font-extrabold text-slate-900 sm:text-6xl md:text-7xl lg:text-8xl">
             <span className="font-serif italic text-gold">Shorts</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-slate-600">
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
             Videos cortos con explicaciones claras sobre procesos migratorios,
             directamente de nuestro equipo legal.
           </p>
