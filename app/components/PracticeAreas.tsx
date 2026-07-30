@@ -60,7 +60,7 @@ export const practiceAreas: PracticeArea[] = [
     title: "Fianza de Inmigración",
     desc: "Te ayudamos a solicitar la liberación bajo fianza mientras tu proceso migratorio continúa.",
     slug: "fianza-de-inmigracion",
-    image: "/images/services/img-fianza_de_Inmigracion.png",
+    image: "/images/services/img_fianza.png",
   },
 ];
 
