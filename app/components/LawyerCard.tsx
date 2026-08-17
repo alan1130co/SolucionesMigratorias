@@ -42,9 +42,7 @@ export default function LawyerCard() {
     >
       <div className="mx-auto max-w-7xl">
         <Reveal className="mb-20 text-center">
-          <span className="text-xs font-semibold uppercase tracking-widest text-gold">
-            Quiénes Somos
-          </span>
+          
           <h2 className="mt-3 text-5xl font-extrabold text-foreground sm:text-6xl md:text-7xl lg:text-8xl">
             Nuestro Abogado de <span className="font-extrabold text-gold">Inmigración </span>
           </h2>

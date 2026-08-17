@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { Pause, Play } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react";
 import { Reveal } from "./motion/Reveal";
 
 interface Short {
@@ -60,47 +60,49 @@ const cardVariants: Variants = {
 
 function ShortCard({ short }: { short: Short }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
-  const togglePlay = () => {
+  // El short siempre está en loop silencioso (estilo Reels/TikTok); el único
+  // control manual que necesita el usuario es activar o no el audio.
+  const toggleMute = () => {
     const video = videoRef.current;
     if (!video) return;
-    if (isPlaying) {
-      video.pause();
-    } else {
-      // El clic es un gesto explícito del usuario, así que el navegador
-      // permite reproducir con audio (a diferencia del autoplay en hover).
-      video.muted = false;
-      video.play();
+    const next = !video.muted;
+    video.muted = next;
+    if (!next) {
+      video.volume = 1;
+      video.play().catch(() => {});
     }
-    setIsPlaying(!isPlaying);
+    setIsMuted(next);
   };
 
   const handleHoverStart = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    // Para cuando el hover llega, el usuario ya interactuó con la página
-    // (scroll/mouse), así que el navegador permite audio en la vista previa.
-    video.muted = false;
-    video.volume = 1;
-    video.play().catch(() => {});
-    setIsPlaying(true);
+    videoRef.current?.play().catch(() => {});
   };
 
-  const handleHoverEnd = () => {
+  // En móvil no existe "hover": el short debe reproducirse solo por estar
+  // visible en pantalla. El autoplay real solo lo permiten los navegadores
+  // si el video está silenciado, por eso el atributo `muted` nunca se quita
+  // automáticamente — solo lo cambia el usuario con el botón de audio.
+  const handleViewportEnter = () => {
+    videoRef.current?.play().catch(() => {});
+  };
+
+  const handleViewportLeave = () => {
     const video = videoRef.current;
     if (!video) return;
     video.pause();
-    video.currentTime = 0;
     video.muted = true;
-    setIsPlaying(false);
+    setIsMuted(true);
   };
 
   return (
     <motion.div
       variants={cardVariants}
       onHoverStart={handleHoverStart}
-      onHoverEnd={handleHoverEnd}
+      onViewportEnter={handleViewportEnter}
+      onViewportLeave={handleViewportLeave}
+      viewport={{ amount: 0.6 }}
       whileHover={{
         scale: 1.03,
         boxShadow: "0 20px 40px rgba(0, 0, 0, 0.18)",
@@ -113,29 +115,28 @@ function ShortCard({ short }: { short: Short }) {
         src={short.video}
         poster={short.poster}
         preload="metadata"
-        loop
+        autoPlay
         muted
+        loop
         playsInline
         aria-label={short.title}
-        onClick={togglePlay}
+        onClick={toggleMute}
         className="h-full w-full cursor-pointer object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
 
       {/* Overlay de degradado sutil para que el botón resalte */}
       <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/20" />
 
-      {/* Botón de reproducción */}
+      {/* Botón flotante de silencio/audio, estilo Reels/TikTok */}
       <motion.button
-        onClick={togglePlay}
+        onClick={toggleMute}
         whileHover={{ scale: 1.12 }}
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        aria-label={isPlaying ? "Pausar" : "Reproducir"}
-        className={`absolute inset-0 m-auto flex h-14 w-14 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-md ring-1 ring-white/30 transition-opacity duration-300 group-hover:ring-white/70 ${
-          isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
-        }`}
+        aria-label={isMuted ? "Activar sonido" : "Silenciar"}
+        className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md ring-1 ring-white/30 transition-colors duration-300 group-hover:ring-white/70"
       >
-        {isPlaying ? <Pause size={22} /> : <Play size={22} className="ml-0.5" />}
+        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
       </motion.button>
     </motion.div>
   );
