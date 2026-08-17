@@ -37,6 +37,8 @@ export default function Hero() {
       <motion.video
         className="absolute inset-0 z-0 h-[120%] w-full object-cover"
         style={{ y: videoY }}
+        poster="/images/hero-poster.jpg"
+        preload="auto"
         autoPlay
         loop
         muted
