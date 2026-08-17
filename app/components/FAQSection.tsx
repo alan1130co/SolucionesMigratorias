@@ -19,7 +19,7 @@ const faqs: FaqItem[] = [
   },
   {
     question:
-      ": Tengo mucho miedo de presentarme a la última audiencia, ¿es normal?",
+      "Tengo mucho miedo de presentarme a la última audiencia, ¿es normal?",
     answer:
       "Es completamente normal sentir miedo antes de la audiencia final. Por eso te preparamos a fondo: practicamos tu historia, revisamos cada posible pregunta y te acompañamos para que llegues con seguridad.",
   },

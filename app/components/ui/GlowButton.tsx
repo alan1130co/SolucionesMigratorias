@@ -76,6 +76,20 @@ export function GlowButton({
         }}
       />
 
+      {/* Destello automático que recorre el botón cada pocos segundos */}
+      <motion.span
+        aria-hidden="true"
+        initial={{ x: "-150%" }}
+        animate={{ x: "150%" }}
+        transition={{
+          duration: 1.1,
+          repeat: Infinity,
+          repeatDelay: 2.6,
+          ease: "easeInOut",
+        }}
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 w-1/3 -skew-x-12 bg-linear-to-r from-transparent via-white/40 to-transparent"
+      />
+
       <span className="relative z-10 flex items-center gap-2">
         {children}
       </span>

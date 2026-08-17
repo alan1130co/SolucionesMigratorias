@@ -125,6 +125,8 @@ export default function Testimonials({ reviews }: TestimonialsProps) {
                 <motion.div
                   key={review.id}
                   variants={cardItem}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                   className="w-72 shrink-0 snap-center overflow-hidden rounded-2xl border border-gold/10 sm:w-96"
                 >
                   <Image
@@ -140,6 +142,8 @@ export default function Testimonials({ reviews }: TestimonialsProps) {
                 <motion.div
                   key={t.name}
                   variants={cardItem}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                   className="flex w-80 shrink-0 snap-center flex-col gap-4 rounded-2xl border border-gold/10 bg-background p-8 sm:w-96"
                 >
                   <StarRating />

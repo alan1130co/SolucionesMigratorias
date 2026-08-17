@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useMotionValue, animate } from "framer-motion";
 import { SectionWrapper } from "./SectionWrapper";
 
@@ -70,11 +69,12 @@ const SLIDE_TRANSITION = { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const };
 
 function AreaCard({ area, width }: { area: PracticeArea; width?: number }) {
   return (
-    <Link
-      href={`/areas-de-practica/${area.slug}`}
+    <a
+      href="#contacto"
+      aria-label={`Consultar sobre ${area.title}`}
       draggable={false}
       style={width ? { width, flex: `0 0 ${width}px` } : undefined}
-      className="group relative block aspect-[3/4] w-full shrink-0 select-none overflow-hidden rounded-3xl border-0 bg-navy-900 outline-none"
+      className="group relative block aspect-[3/4] w-full shrink-0 select-none overflow-hidden rounded-3xl border-0 bg-navy-900 outline-none transition-transform duration-300 ease-out hover:scale-[1.02]"
     >
       <div className="absolute inset-0 overflow-hidden">
         <Image
@@ -112,7 +112,7 @@ function AreaCard({ area, width }: { area: PracticeArea; width?: number }) {
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>
       </div>
-    </Link>
+    </a>
   );
 }
 

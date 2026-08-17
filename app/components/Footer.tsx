@@ -5,7 +5,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 const quickLinks = [
   { label: "Inicio", href: "/#inicio" },
   { label: "Servicios", href: "/#servicios" },
-  { label: "Casos", href: "/casos-de-exito" },
+  { label: "Casos", href: "/#casos" },
   { label: "Nosotros", href: "/sobre-nosotros" },
   { label: "Contacto", href: "/contacto" },
 ];
@@ -23,7 +23,7 @@ const hours = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-navy-700 bg-navy-900 px-6 pt-16 pb-8 text-white">
+    <footer id="footer" className="border-t border-navy-700 bg-navy-900 px-6 pt-16 pb-8 text-white">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
         {/* Marca / Descripción */}
         <div className="space-y-5 lg:col-span-1">
@@ -190,6 +190,6 @@ export default function Footer() {
         </p>
         <p className="text-xs text-white">Miami, Florida · Estados Unidos</p>
       </div>
-    </footer>
+    </footer>                                                                          
   );
 }

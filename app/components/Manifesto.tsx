@@ -1,7 +1,24 @@
 "use client";
 
+import { motion, type Variants } from "framer-motion";
 import { SectionWrapper } from "./SectionWrapper";
 import { CountUpNumber } from "./ui/CountUpNumber";
+
+const statsContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+  },
+};
+
+const statsItem: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 interface Stat {
   value: number;
@@ -37,14 +54,20 @@ export default function Manifesto() {
           </p>
         </SectionWrapper>
 
-        <SectionWrapper
-          delay={0.15}
+        <motion.div
+          variants={statsContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
           className="mt-16 grid grid-cols-2 gap-8 border-t border-gold/10 pt-16 sm:grid-cols-4"
         >
           {stats.map((stat) => (
-            <div
+            <motion.div
               key={stat.label}
-              className="group cursor-default transition-transform duration-300 hover:scale-105"
+              variants={statsItem}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="group cursor-default"
             >
               <p className="font-serif text-4xl text-gold transition-colors duration-300 group-hover:text-gold-600 sm:text-5xl">
                 <CountUpNumber
@@ -56,9 +79,9 @@ export default function Manifesto() {
               <p className="mt-2 text-xs uppercase tracking-wider text-foreground/60 sm:text-sm">
                 {stat.label}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </SectionWrapper>
+        </motion.div>
       </div>
     </section>
   );

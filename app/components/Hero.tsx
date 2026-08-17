@@ -24,6 +24,8 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const shapeGoldY = useTransform(scrollYProgress, [0, 1], ["0%", "45%"]);
+  const shapeWhiteY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
 
   return (
     <section
@@ -45,6 +47,18 @@ export default function Hero() {
           type="video/mp4"
         />
       </motion.video>
+
+      {/* Formas geométricas decorativas con parallax desacoplado del video/scroll */}
+      <motion.div
+        aria-hidden="true"
+        style={{ y: shapeGoldY }}
+        className="pointer-events-none absolute -right-24 top-1/4 z-[1] h-80 w-80 rounded-full bg-gold-500/15 blur-3xl"
+      />
+      <motion.div
+        aria-hidden="true"
+        style={{ y: shapeWhiteY }}
+        className="pointer-events-none absolute -left-32 bottom-1/4 z-[1] h-96 w-96 rounded-full bg-white/5 blur-3xl"
+      />
 
       {/* Contenido */}
       <motion.div
@@ -82,7 +96,7 @@ export default function Hero() {
             hoverScale={1.05}
             className="px-12! py-[18px]! text-base! tracking-[0.18em]! shadow-[0_0_0_rgba(201,162,39,0)] hover:shadow-[0_0_45px_rgba(201,162,39,0.55)]"
           >
-            Agendar Consulta
+            Agendar Consulta Gratis
             <MessageCircle size={20} />
           </GlowButton>
         </motion.div>

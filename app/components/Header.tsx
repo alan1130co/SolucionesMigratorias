@@ -10,8 +10,8 @@ import { GlowButton } from "./ui/GlowButton";
 const links = [
   { label: "Inicio", href: "/#inicio" },
   { label: "Servicios", href: "/#servicios" },
-  { label: "Casos", href: "/casos-de-exito" },
-  { label: "Nosotros", href: "/sobre-nosotros" },
+  { label: "Casos", href: "/#casos" },
+  { label: "Nosotros", href: "/#footer" },
   { label: "Contacto", href: "/contacto" },
 ];
 
@@ -69,21 +69,23 @@ export default function Header() {
       >
 
         {/* ── Logo + Título flotante único ── */}
-        <Link href="/#inicio" className="group flex shrink-0 items-center gap-5">
+        {/* Por debajo de `sm` solo se muestra el ícono: con el wordmark completo
+            el bloque no dejaba espacio para el botón de menú en pantallas de 320-360px. */}
+        <Link href="/#inicio" className="group flex min-w-0 shrink items-center gap-3 sm:shrink-0 sm:gap-5">
           <Image
             src="/images/logo_SM_icon_transparente.png"
             alt="SM Soluciones Migratorias"
             width={382}
             height={208}
             priority
-            className="h-14 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-16"
+            className="h-12 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-14 lg:h-16"
           />
           <span
-            className={`h-10 w-px shrink-0 transition-colors duration-300 sm:h-12 ${
+            className={`hidden h-10 w-px shrink-0 transition-colors duration-300 sm:block sm:h-12 ${
               scrolled ? "bg-navy-900/15" : "bg-white/15"
             }`}
           />
-          <span className="flex flex-col leading-tight">
+          <span className="hidden flex-col leading-tight sm:flex">
             <span className="whitespace-nowrap text-[16px] font-semibold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
               Soluciones
             </span>

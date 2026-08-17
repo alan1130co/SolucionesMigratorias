@@ -1,6 +1,23 @@
 "use client";
 
+import { motion, type Variants } from "framer-motion";
 import { SectionWrapper } from "./SectionWrapper";
+
+const stepsContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+  },
+};
+
+const stepsItem: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 interface Step {
   number: string;
@@ -38,31 +55,32 @@ export default function OurApproach() {
         {/* Columna izquierda: headline + filosofía */}
         <SectionWrapper>
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">
-            Nuestro Enfoque
+        
           </span>
-          <h2 className="mt-4 text-5xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
-            Legal, sí. Pero{" "}
-            <span className="font-extrabold text-gold">humano</span>{" "}
-            primero.
+          <h2 className="mt-4 text-5xl font-extrabold leading-tight tracking-tight  text-gold  sm:text-6xl md:text-7xl lg:text-8xl">
+            ¿MIEDO A IR SOLO A LA CORTE?{" "}
+            <span className="font-extrabold text-white">Nunca mas solo.</span>{" "}
+            
           </h2>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-white/60 sm:text-lg">
-            Sabemos que detrás de cada trámite hay una vida en pausa. Por eso
-            no manejamos expedientes: acompañamos personas. Nuestro trabajo
-            combina rigor legal con una comunicación clara y cercana, para que
-            nunca sientas que tu caso es un número más.
+            El miedo más grande no es la corte, es enfrentarla solo. Desde el día uno tienes un abogado que habla por ti en las audiencias previas, y un equipo que te prepara a fondo para el día en que sí te toca hablar.
           </p>
-          <p className="mt-4 max-w-lg text-base leading-relaxed text-white/60 sm:text-lg">
-            Cada estrategia se construye a partir de tu historia particular,
-            no de una plantilla. Esa es la diferencia entre un trámite
-            gestionado y un proceso realmente acompañado.
-          </p>
+          
+        
         </SectionWrapper>
 
         {/* Columna derecha: proceso numerado */}
-        <SectionWrapper delay={0.15} className="flex flex-col gap-10">
+        <motion.div
+          variants={stepsContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          className="flex flex-col gap-10"
+        >
           {steps.map((step) => (
-            <div
+            <motion.div
               key={step.number}
+              variants={stepsItem}
               className="group -mx-4 flex gap-6 rounded-xl p-4 transition-colors duration-300 hover:bg-white/5"
             >
               <span className="font-serif text-3xl text-gold/50 transition-colors duration-300 group-hover:text-gold">
@@ -76,9 +94,9 @@ export default function OurApproach() {
                   {step.desc}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </SectionWrapper>
+        </motion.div>
       </div>
     </section>
   );
