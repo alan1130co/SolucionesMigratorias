@@ -7,7 +7,7 @@ import { Reveal } from "./motion/Reveal";
 
 const CEO_NAME = "Sasha Moreno";
 const CEO_MESSAGE =
-  "Sé lo abrumador que puede ser empezar de nuevo en un país desconocido, porque cada trámite lleva detrás el sueño y el esfuerzo de toda una familia. No estás solo en este camino: aquí encontrarás la honestidad, el profesionalismo y el respaldo humano que necesitas para alcanzar una vida segura y tranquila en los Estados Unidos.";
+  "“Antes de ser CEO de esta firma, entendí que lo que más necesita un inmigrante no es solo un abogado — es alguien que lo escuche, que le diga la verdad y que trabaje para que su caso tenga la mejor oportunidad posible. Eso es lo que hacemos aquí, caso por caso, familia por familia.”";
 
 // TODO: colocar la foto de la CEO en public/images/ y actualizar esta ruta.
 const CEO_PHOTO = "/images/ceo-fundadora.jpg";
