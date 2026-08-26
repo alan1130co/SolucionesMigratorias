@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Montserrat } from "next/font/google";
 import CustomCursor from "./components/CustomCursor";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -14,6 +14,12 @@ const inter = Inter({
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  weight: ["600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -41,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${inter.variable} ${playfair.variable} bg-background text-foreground antialiased`}
+        className={`${inter.variable} ${playfair.variable} ${montserrat.variable} bg-background text-foreground antialiased`}
       >
         <CustomCursor />
         <Header />

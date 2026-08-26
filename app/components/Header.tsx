@@ -85,11 +85,11 @@ export default function Header() {
               scrolled ? "bg-navy-900/15" : "bg-white/15"
             }`}
           />
-          <span className="hidden flex-col leading-tight sm:flex">
-            <span className="whitespace-nowrap text-[16px] font-semibold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
+          <span className="hidden flex-col leading-tight font-logo sm:flex">
+            <span className="whitespace-nowrap text-[16px] font-bold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
               Soluciones
             </span>
-            <span className="whitespace-nowrap text-[16px] font-semibold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
+            <span className="whitespace-nowrap text-[16px] font-bold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
               Migratorias
             </span>
           </span>

@@ -22,6 +22,7 @@
 
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
+  --font-logo: var(--font-montserrat);
 }
 
 html {
