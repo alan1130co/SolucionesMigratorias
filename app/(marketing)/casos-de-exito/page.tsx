@@ -10,14 +10,19 @@ import {
 } from "lucide-react";
 import { PageBanner } from "@/app/components/PageBanner";
 import { SectionWrapper } from "@/app/components/SectionWrapper";
-import Testimonials, { ReviewImage } from "@/app/components/Testimonials";
+import Testimonials from "@/app/components/Testimonials";
 import FinalCTA from "@/app/components/FinalCTA";
+import { getGoogleReviews, getGoogleMapsFallbackUrl } from "@/lib/google-reviews";
 
 export const metadata: Metadata = {
   title: "Casos de Éxito | Soluciones Migratorias SM",
   description:
     "Resultados reales por área de práctica y testimonios de familias que confiaron en Soluciones Migratorias SM para sus procesos migratorios en Estados Unidos.",
 };
+
+// Regenera la página cada 24h aunque el build inicial haya corrido sin
+// GOOGLE_PLACES_API_KEY/GOOGLE_PLACE_ID (o Google haya fallado ese día).
+export const revalidate = 86400;
 
 interface CaseResult {
   icon: LucideIcon;
@@ -65,9 +70,10 @@ const caseResults: CaseResult[] = [
   },
 ];
 
-const reviews: ReviewImage[] = [];
+export default async function CasosDeExitoPage() {
+  const reviewsData = await getGoogleReviews();
+  const fallbackUrl = getGoogleMapsFallbackUrl();
 
-export default function CasosDeExitoPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <PageBanner
@@ -118,7 +124,7 @@ export default function CasosDeExitoPage() {
         </div>
       </section>
 
-      <Testimonials reviews={reviews} />
+      <Testimonials data={reviewsData} fallbackUrl={fallbackUrl} />
       <FinalCTA />
     </main>
   );

@@ -32,8 +32,13 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  // Con el menú móvil abierto, el header siempre adopta el estado oscuro
+  // (logo blanco, textos blancos, sin fondo claro) sin importar el scroll,
+  // para que no aparezca una barra clara sobre el overlay navy del menú.
+  const oscuro = !scrolled || isOpen;
+
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -45,16 +50,16 @@ export default function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
       className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-navy-100 bg-white/85 backdrop-blur-md shadow-[0_4px_20px_rgba(27,45,91,0.08)]"
-          : "bg-transparent border-none shadow-none"
+        oscuro
+          ? "bg-transparent border-none shadow-none"
+          : "border-b border-navy-100 bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(27,45,91,0.08)]"
       }`}
     >
       {/* ── Scrim fijo para garantizar contraste sobre la foto del Hero ── */}
       <div
         aria-hidden
         className={`pointer-events-none absolute inset-x-0 top-0 z-0 h-32.5 transition-opacity duration-300 ${
-          scrolled ? "opacity-0" : "opacity-100"
+          oscuro ? "opacity-100" : "opacity-0"
         }`}
         style={{
           background:
@@ -72,24 +77,49 @@ export default function Header() {
         {/* Por debajo de `sm` solo se muestra el ícono: con el wordmark completo
             el bloque no dejaba espacio para el botón de menú en pantallas de 320-360px. */}
         <Link href="/#inicio" className="group flex min-w-0 shrink items-center gap-3 sm:shrink-0 sm:gap-5">
-          <Image
-            src="/images/logo_SM_icon_transparente.png"
-            alt="SM Soluciones Migratorias"
-            width={382}
-            height={208}
-            priority
-            className="h-12 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-14 lg:h-16"
-          />
+          {/* Contenedor de tamaño fijo (mismo footprint que el logo original)
+              con dos versiones del logo superpuestas en crossfade por opacidad,
+              según el estado oscuro/claro del header. */}
+          <span className="relative inline-block aspect-191/104 h-12 shrink-0 sm:h-14 lg:h-16">
+            <Image
+              src="/images/logo_footer.png"
+              alt="SM Soluciones Migratorias"
+              width={382}
+              height={208}
+              priority
+              className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-300 group-hover:scale-105 ${
+                oscuro ? "opacity-100" : "opacity-0"
+              }`}
+            />
+            <Image
+              src="/images/logo_SM_icon_transparente.png"
+              alt=""
+              aria-hidden="true"
+              width={382}
+              height={208}
+              className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-300 group-hover:scale-105 ${
+                oscuro ? "opacity-0" : "opacity-100"
+              }`}
+            />
+          </span>
           <span
             className={`hidden h-10 w-px shrink-0 transition-colors duration-300 sm:block sm:h-12 ${
-              scrolled ? "bg-navy-900/15" : "bg-white/15"
+              oscuro ? "bg-white/15" : "bg-navy-900/15"
             }`}
           />
           <span className="hidden flex-col leading-tight font-logo sm:flex">
-            <span className="whitespace-nowrap text-[16px] font-bold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
+            <span
+              className={`whitespace-nowrap text-[16px] font-bold uppercase tracking-[0.12em] transition-colors duration-300 sm:text-[18px] ${
+                oscuro ? "text-gold" : "text-gold-600"
+              }`}
+            >
               Soluciones
             </span>
-            <span className="whitespace-nowrap text-[16px] font-bold uppercase tracking-[0.12em] text-gold sm:text-[18px]">
+            <span
+              className={`whitespace-nowrap text-[16px] font-bold uppercase tracking-[0.12em] transition-colors duration-300 sm:text-[18px] ${
+                oscuro ? "text-gold" : "text-gold-600"
+              }`}
+            >
               Migratorias
             </span>
           </span>
@@ -102,7 +132,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className={`group relative text-base font-semibold tracking-wide transition-colors hover:text-gold lg:text-lg ${
-                scrolled ? "text-navy-700" : "text-gray-200"
+                oscuro ? "text-gray-200" : "text-navy-700"
               }`}
             >
               {link.label}
@@ -115,7 +145,7 @@ export default function Header() {
         <div className="flex items-center">
           <button
             className={`p-2 transition-colors hover:text-gold md:hidden ${
-              scrolled ? "text-navy-900" : "text-white"
+              oscuro ? "text-white" : "text-navy-900"
             }`}
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}

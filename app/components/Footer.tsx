@@ -121,7 +121,7 @@ export default function Footer() {
       {/* Copyright + firma del desarrollador */}
       <div className="mx-auto mt-6 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-navy-700 pt-6 text-center sm:flex-row sm:text-left">
         <p className="text-xs text-white/50">
-          © {new Date().getFullYear()} Soluciones Migratorias SM · Todos los
+          © {new Date().getFullYear()} ATC USA INVESTMENTS LLC. Todos los
           derechos reservados
         </p>
         <p className="text-xs text-white">
