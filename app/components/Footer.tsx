@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="max-w-sm space-y-4">
           <Link href="/#inicio" className="group inline-flex shrink-0 items-center gap-5">
             <Image
-              src="/images/logo_footer.png"
+              src="/images/logo_footer.webp"
               alt="SM Soluciones Migratorias"
               width={382}
               height={208}

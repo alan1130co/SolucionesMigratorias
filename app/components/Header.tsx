@@ -82,7 +82,7 @@ export default function Header() {
               según el estado oscuro/claro del header. */}
           <span className="relative inline-block aspect-191/104 h-12 shrink-0 sm:h-14 lg:h-16">
             <Image
-              src="/images/logo_footer.png"
+              src="/images/logo_footer.webp"
               alt="SM Soluciones Migratorias"
               width={382}
               height={208}
@@ -92,7 +92,7 @@ export default function Header() {
               }`}
             />
             <Image
-              src="/images/logo_SM_icon_transparente.png"
+              src="/images/logo_SM_icon_transparente.webp"
               alt=""
               aria-hidden="true"
               width={382}
