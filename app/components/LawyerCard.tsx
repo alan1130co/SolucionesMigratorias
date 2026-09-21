@@ -56,7 +56,7 @@ export default function LawyerCard() {
           >
             <div className="relative aspect-4/5 w-full">
               <Image
-                src="/images/nisael_santos.jpg"
+                src="/images/nisael_santos.webp"
                 alt="Nisael Santos Torres, Abogado de Inmigración"
                 fill
                 className="object-contain object-top drop-shadow-2xl"

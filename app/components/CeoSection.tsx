@@ -10,7 +10,7 @@ const CEO_MESSAGE =
   "“Antes de ser CEO de esta firma, entendí que lo que más necesita un inmigrante no es solo un abogado — es alguien que lo escuche, que le diga la verdad y que trabaje para que su caso tenga la mejor oportunidad posible. Eso es lo que hacemos aquí, caso por caso, familia por familia.”";
 
 // TODO: colocar la foto de la CEO en public/images/ y actualizar esta ruta.
-const CEO_PHOTO = "/images/ceo-fundadora.jpg";
+const CEO_PHOTO = "/images/ceo-fundadora.webp";
 
 export default function CeoSection() {
   const sectionRef = useRef<HTMLElement>(null);
