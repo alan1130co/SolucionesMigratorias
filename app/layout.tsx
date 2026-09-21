@@ -14,6 +14,9 @@ const inter = Inter({
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+  // No se usa en el primer pantallazo (Hero/Header) — evitamos precargarla
+  // para no competir por ancho de banda con Inter, que sí es critica.
+  preload: false,
 });
 
 const montserrat = Montserrat({
