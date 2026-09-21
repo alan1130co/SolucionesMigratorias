@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { GlowButton } from "./ui/GlowButton";
@@ -27,28 +27,53 @@ export default function Hero() {
   const shapeGoldY = useTransform(scrollYProgress, [0, 1], ["0%", "45%"]);
   const shapeWhiteY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
 
+  // En conexiones lentas o con "ahorro de datos" activado, nos quedamos con
+  // el poster estático en vez de descargar el video de fondo.
+  const [canPlayVideo, setCanPlayVideo] = useState(true);
+
+  useEffect(() => {
+    const nav = navigator as Navigator & {
+      connection?: { saveData?: boolean; effectiveType?: string };
+    };
+    const connection = nav.connection;
+    const isSlow =
+      connection?.saveData ||
+      ["slow-2g", "2g", "3g"].includes(connection?.effectiveType ?? "");
+    if (isSlow) setCanPlayVideo(false);
+  }, []);
+
   return (
     <section
       ref={sectionRef}
       id="inicio"
       className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-navy-900 px-6 py-32 text-center"
     >
-      {/* Video de fondo con parallax sutil */}
-      <motion.video
-        className="absolute inset-0 z-0 h-[120%] w-full object-cover"
-        style={{ y: videoY }}
-        poster="/images/hero-poster.jpg"
-        preload="auto"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source
-          src="/videos/video_principal_solcuiones_migratorias.mp4"
-          type="video/mp4"
+      {/* Fondo: video con parallax sutil, o solo el poster en conexiones lentas/saveData */}
+      {canPlayVideo ? (
+        <motion.video
+          className="absolute inset-0 z-0 h-[120%] w-full object-cover"
+          style={{ y: videoY }}
+          poster="/images/hero-poster.jpg"
+          preload="metadata"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source
+            src="/videos/video_principal_solcuiones_migratorias.mp4"
+            type="video/mp4"
+          />
+        </motion.video>
+      ) : (
+        <motion.img
+          src="/images/hero-poster.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 z-0 h-[120%] w-full object-cover"
+          style={{ y: videoY }}
         />
-      </motion.video>
+      )}
 
       {/* Formas geométricas decorativas con parallax desacoplado del video/scroll */}
       <motion.div

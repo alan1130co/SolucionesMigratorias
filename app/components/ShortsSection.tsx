@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 import { Reveal } from "./motion/Reveal";
@@ -9,7 +9,7 @@ interface Short {
   id: string;
   title: string;
   video: string;
-  poster?: string;
+  poster: string;
   featured?: boolean;
 }
 
@@ -18,27 +18,32 @@ const shorts: Short[] = [
     id: "entrevista-oficial",
     title: "Entrevista con un Oficial",
     video: "/videos/shorts/entrevista-oficial.mp4",
+    poster: "/images/shorts/entrevista-oficial.webp",
   },
   {
     id: "pierdes-asilo-pregunta",
     title: "Puedes Perder tu Asilo por una Pregunta",
     video: "/videos/shorts/pierdes-asilo-pregunta.mp4",
+    poster: "/images/shorts/pierdes-asilo-pregunta.webp",
   },
   {
     id: "corte-migracion",
     title: "Vas a Entrar Solo a la Corte de Migración",
     video: "/videos/shorts/corte-migracion.mp4",
+    poster: "/images/shorts/corte-migracion.webp",
   },
   {
     id: "testimonio",
     title: "Testimonio",
     video: "/videos/shorts/testimonio.mp4",
+    poster: "/images/shorts/testimonio.webp",
     featured: true,
   },
   {
     id: "10-errores-asilo",
     title: "10 Errores que Destruyen Casos de Asilo",
     video: "/videos/shorts/10-errores-asilo.mp4",
+    poster: "/images/shorts/10-errores-asilo.webp",
   },
 ];
 
@@ -61,12 +66,17 @@ const cardVariants: Variants = {
 function ShortCard({ short }: { short: Short }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
+  // El <source> solo se agrega al DOM cuando el short está por entrar en
+  // pantalla, así el navegador no descarga nada de los 5 videos hasta que
+  // hace falta (preload="none" + sin atributo autoPlay nativo).
+  const [loaded, setLoaded] = useState(false);
 
   // El short siempre está en loop silencioso (estilo Reels/TikTok); el único
   // control manual que necesita el usuario es activar o no el audio.
   const toggleMute = () => {
     const video = videoRef.current;
     if (!video) return;
+    if (!loaded) setLoaded(true);
     const next = !video.muted;
     video.muted = next;
     if (!next) {
@@ -76,8 +86,21 @@ function ShortCard({ short }: { short: Short }) {
     setIsMuted(next);
   };
 
-  const handleHoverStart = () => {
+  const play = () => {
+    setLoaded(true);
     videoRef.current?.play().catch(() => {});
+  };
+
+  // Una vez que el <source> se monta (loaded=true), aseguramos la
+  // reproducción del frame más reciente en el que se pidió play().
+  useEffect(() => {
+    if (loaded) {
+      videoRef.current?.play().catch(() => {});
+    }
+  }, [loaded]);
+
+  const handleHoverStart = () => {
+    play();
   };
 
   // En móvil no existe "hover": el short debe reproducirse solo por estar
@@ -85,7 +108,7 @@ function ShortCard({ short }: { short: Short }) {
   // si el video está silenciado, por eso el atributo `muted` nunca se quita
   // automáticamente — solo lo cambia el usuario con el botón de audio.
   const handleViewportEnter = () => {
-    videoRef.current?.play().catch(() => {});
+    play();
   };
 
   const handleViewportLeave = () => {
@@ -112,10 +135,9 @@ function ShortCard({ short }: { short: Short }) {
     >
       <video
         ref={videoRef}
-        src={short.video}
+        src={loaded ? short.video : undefined}
         poster={short.poster}
-        preload="metadata"
-        autoPlay
+        preload="none"
         muted
         loop
         playsInline
