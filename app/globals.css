@@ -55,3 +55,18 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Entrada del Hero en CSS puro: el texto se pinta visible (opacity:1) desde
+   el primer frame del servidor y solo se desliza con transform, nunca queda
+   oculto. Un motion.div con opacity:0 inicial retrasaba el LCP hasta que
+   Framer Motion corria en cliente (~4s bajo throttling movil) — y animar
+   opacity desde 0 con CSS lo empeoro (Chrome descarta como candidato LCP
+   cualquier elemento que empiece en opacity:0, aunque despues suba a 1). */
+@keyframes hero-fade-up {
+  from {
+    transform: translateY(24px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

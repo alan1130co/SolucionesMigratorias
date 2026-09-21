@@ -1,24 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { GlowButton } from "./ui/GlowButton";
 
-const container: Variants = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
+// Mismo timing que el stagger de Framer Motion que reemplazan (delayChildren
+// 0.2s + staggerChildren 0.15s), pero como animacion CSS: se pinta desde el
+// primer render del servidor, sin esperar a la hidratacion de React.
+const heroFadeUp = (delaySeconds: number) => ({
+  animation: `hero-fade-up 0.7s ease-out ${delaySeconds}s both`,
+});
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
@@ -42,6 +38,33 @@ export default function Hero() {
     if (isSlow) setCanPlayVideo(false);
   }, []);
 
+  // El video del hero no se pide hasta despues del evento `load`: asi no
+  // compite por ancho de banda con el HTML/CSS/fuentes/JS criticos del
+  // primer paint. Hasta entonces solo se ve el poster (siempre presente).
+  // En movil sirve una version mas liviana (540p, <800KB).
+  useEffect(() => {
+    if (!canPlayVideo) return;
+    const startVideo = () => {
+      const el = videoRef.current;
+      if (!el) return;
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      el.src = isMobile
+        ? "/videos/video_principal_solcuiones_migratorias-mobile.mp4"
+        : "/videos/video_principal_solcuiones_migratorias.mp4";
+      el.load();
+      el.play().catch(() => {});
+    };
+
+    if (document.readyState === "complete") {
+      const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 0));
+      const cancelIdle = window.cancelIdleCallback ?? window.clearTimeout;
+      const id = idle(startVideo);
+      return () => cancelIdle(id as never);
+    }
+    window.addEventListener("load", startVideo, { once: true });
+    return () => window.removeEventListener("load", startVideo);
+  }, [canPlayVideo]);
+
   return (
     <section
       ref={sectionRef}
@@ -51,20 +74,15 @@ export default function Hero() {
       {/* Fondo: video con parallax sutil, o solo el poster en conexiones lentas/saveData */}
       {canPlayVideo ? (
         <motion.video
+          ref={videoRef}
           className="absolute inset-0 z-0 h-[120%] w-full object-cover"
           style={{ y: videoY }}
           poster="/images/hero-poster.jpg"
-          preload="metadata"
-          autoPlay
+          preload="none"
           loop
           muted
           playsInline
-        >
-          <source
-            src="/videos/video_principal_solcuiones_migratorias.mp4"
-            type="video/mp4"
-          />
-        </motion.video>
+        />
       ) : (
         <motion.img
           src="/images/hero-poster.jpg"
@@ -87,34 +105,28 @@ export default function Hero() {
         className="pointer-events-none absolute -left-32 bottom-1/4 z-[1] h-96 w-96 rounded-full bg-white/5 blur-3xl"
       />
 
-      {/* Contenido */}
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 mx-auto flex max-w-4xl flex-col items-center"
-      >
-        
-
-        <motion.h1
-          variants={item}
+      {/* Contenido: h1/p/boton se pintan de inmediato en el HTML del server
+          y se animan con CSS puro (ver hero-fade-up en globals.css), para
+          que el LCP no dependa de que React hidrate primero. */}
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center">
+        <h1
+          style={heroFadeUp(0.2)}
           className="text-5xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
         >
           Abogados de{" "}
           <span className="font-extrabold leading-tight tracking-tight text-gold">
             Inmigración
           </span>{" "}
-          
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          variants={item}
+        <p
+          style={heroFadeUp(0.35)}
           className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg"
         >
          Preparamos tu caso de asilo con evidencia sólida y estrategia clara, para que llegues a tu audiencia con la mejor oportunidad de quedarte legalmente en EE. UU. — sin improvisar, sin errores que aumenten tu riesgo de deportación
-        </motion.p>
+        </p>
 
-        <motion.div variants={item} className="mt-10 flex justify-center">
+        <div style={heroFadeUp(0.5)} className="mt-10 flex justify-center">
           <GlowButton
             href="https://wa.me/+13054984470"
             target="_blank"
@@ -126,8 +138,8 @@ export default function Hero() {
             Agendar Consulta Gratis
             <MessageCircle size={20} />
           </GlowButton>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Indicador de scroll animado */}
       <motion.div
