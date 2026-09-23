@@ -70,7 +70,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="inicio"
-      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-navy-900 px-6 py-32 text-center"
+      className="relative flex min-h-[72vh] w-full flex-col items-center justify-center overflow-hidden bg-navy-900 px-6 py-32 text-center md:min-h-screen"
     >
       {/* Fondo movil (<768px): solo imagen estatica, sin <video> — evita que
           compita por LCP y ahorra el ancho de banda del video en movil.
@@ -82,11 +82,28 @@ export default function Hero() {
           alt=""
           aria-hidden="true"
           fill
+          sizes="100vw"
+          className="scale-110 object-cover object-center blur-2xl brightness-[0.45]"
+        />
+        <Image
+          src="/images/hero_poster_movil.webp"
+          alt=""
+          aria-hidden="true"
+          fill
           priority
           fetchPriority="high"
           sizes="100vw"
-          className="object-cover"
-          style={{ objectPosition: "88% center" }}
+          className="object-contain object-center"
+        />
+        {/* Refuerzo de contraste solo en la franja donde cae el texto (centro),
+            para no oscurecer la foto nitida donde no hay texto encima. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(11,18,32,0) 0%, rgba(11,18,32,0.42) 18%, rgba(11,18,32,0.64) 38%, rgba(11,18,32,0.64) 68%, rgba(11,18,32,0.42) 85%, rgba(11,18,32,0) 100%)",
+          }}
         />
       </div>
 
