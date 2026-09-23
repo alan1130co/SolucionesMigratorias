@@ -82,27 +82,18 @@ export default function Hero() {
           alt=""
           aria-hidden="true"
           fill
-          sizes="100vw"
-          className="scale-110 object-cover object-center blur-2xl brightness-[0.45]"
-        />
-        <Image
-          src="/images/hero_poster_movil.webp"
-          alt=""
-          aria-hidden="true"
-          fill
           priority
           fetchPriority="high"
           sizes="100vw"
-          className="object-contain object-center"
+          className="object-cover object-[74%_8%]"
         />
-        {/* Refuerzo de contraste solo en la franja donde cae el texto (centro),
-            para no oscurecer la foto nitida donde no hay texto encima. */}
+        {/* Overlay uniforme de arriba a abajo, no solo una franja central. */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(11,18,32,0) 0%, rgba(11,18,32,0.42) 18%, rgba(11,18,32,0.64) 38%, rgba(11,18,32,0.64) 68%, rgba(11,18,32,0.42) 85%, rgba(11,18,32,0) 100%)",
+              "linear-gradient(to bottom, rgba(11,18,32,0.55) 0%, rgba(11,18,32,0.35) 22%, rgba(11,18,32,0.5) 55%, rgba(11,18,32,0.72) 78%, rgba(11,18,32,0.82) 100%)",
           }}
         />
       </div>
