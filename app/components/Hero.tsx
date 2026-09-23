@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { GlowButton } from "./ui/GlowButton";
@@ -41,16 +42,16 @@ export default function Hero() {
   // El video del hero no se pide hasta despues del evento `load`: asi no
   // compite por ancho de banda con el HTML/CSS/fuentes/JS criticos del
   // primer paint. Hasta entonces solo se ve el poster (siempre presente).
-  // En movil sirve una version mas liviana (540p, <800KB).
+  // En movil (<768px) no se monta video en absoluto: solo la imagen estatica
+  // del Hero, asi que este efecto no debe pedir ningun .mp4 ahi.
   useEffect(() => {
     if (!canPlayVideo) return;
     const startVideo = () => {
       const el = videoRef.current;
       if (!el) return;
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
-      el.src = isMobile
-        ? "/videos/video_principal_solcuiones_migratorias-mobile.mp4"
-        : "/videos/video_principal_solcuiones_migratorias.mp4";
+      if (isMobile) return;
+      el.src = "/videos/video_principal_solcuiones_migratorias.mp4";
       el.load();
       el.play().catch(() => {});
     };
@@ -71,27 +72,48 @@ export default function Hero() {
       id="inicio"
       className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-navy-900 px-6 py-32 text-center"
     >
-      {/* Fondo: video con parallax sutil, o solo el poster en conexiones lentas/saveData */}
-      {canPlayVideo ? (
-        <motion.video
-          ref={videoRef}
-          className="absolute inset-0 z-0 h-[120%] w-full object-cover"
-          style={{ y: videoY }}
-          poster="/images/hero-poster.jpg"
-          preload="none"
-          loop
-          muted
-          playsInline
-        />
-      ) : (
-        <motion.img
-          src="/images/hero-poster.jpg"
+      {/* Fondo movil (<768px): solo imagen estatica, sin <video> — evita que
+          compita por LCP y ahorra el ancho de banda del video en movil.
+          Alternamos por CSS (no por JS) para que el HTML del server ya
+          traiga la variante correcta sin parpadeo ni salto de hidratacion. */}
+      <div className="absolute inset-0 z-0 h-full w-full overflow-hidden md:hidden">
+        <Image
+          src="/images/hero_poster_movil.webp"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 z-0 h-[120%] w-full object-cover"
-          style={{ y: videoY }}
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: "88% center" }}
         />
-      )}
+      </div>
+
+      {/* Fondo desktop (>=768px): video con parallax sutil, o solo el poster
+          en conexiones lentas/saveData — comportamiento sin cambios. */}
+      <div className="hidden md:block">
+        {canPlayVideo ? (
+          <motion.video
+            ref={videoRef}
+            className="absolute inset-0 z-0 h-[120%] w-full object-cover"
+            style={{ y: videoY }}
+            poster="/images/hero-poster.jpg"
+            preload="none"
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <motion.img
+            src="/images/hero-poster.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 z-0 h-[120%] w-full object-cover"
+            style={{ y: videoY }}
+          />
+        )}
+      </div>
 
       {/* Formas geométricas decorativas con parallax desacoplado del video/scroll */}
       <motion.div
