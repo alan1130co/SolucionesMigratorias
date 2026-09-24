@@ -14,7 +14,15 @@ export default function PageTransitionProvider({
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
+    // initial={false}: el HTML del primer render (SSR y primer paint del
+    // cliente) sale directo en el estado "animate" (opacity:1), sin pasar
+    // por opacity:0 — Chrome descarta como candidato LCP cualquier elemento
+    // que empiece en opacity:0, y este wrapper envuelve TODA la pagina
+    // (Hero incluido), asi que ese opacity:0 inicial causaba NO_LCP en el
+    // sitio completo. La transicion si se sigue viendo en navegaciones
+    // posteriores entre rutas, que es cuando AnimatePresence monta un
+    // motion.div nuevo con una key distinta (no es "el primer render").
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
         initial={{ opacity: 0, y: 18 }}
