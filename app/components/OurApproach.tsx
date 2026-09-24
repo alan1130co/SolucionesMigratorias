@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { SectionWrapper } from "./SectionWrapper";
+import { StaggerReveal } from "./motion/StaggerReveal";
 
 const stepsContainer: Variants = {
   hidden: {},
@@ -70,11 +71,9 @@ export default function OurApproach() {
         </SectionWrapper>
 
         {/* Columna derecha: proceso numerado */}
-        <motion.div
+        <StaggerReveal
           variants={stepsContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          amount={0.2}
           className="flex flex-col gap-10"
         >
           {steps.map((step) => (
@@ -96,7 +95,7 @@ export default function OurApproach() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </StaggerReveal>
       </div>
     </section>
   );

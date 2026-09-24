@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { SectionWrapper } from "./SectionWrapper";
+import { StaggerReveal } from "./motion/StaggerReveal";
 import { CountUpNumber } from "./ui/CountUpNumber";
 
 const statsContainer: Variants = {
@@ -54,11 +55,9 @@ export default function Manifesto() {
           </p>
         </SectionWrapper>
 
-        <motion.div
+        <StaggerReveal
           variants={statsContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
+          amount={0.3}
           className="mt-16 grid grid-cols-2 gap-8 border-t border-gold/10 pt-16 sm:grid-cols-4"
         >
           {stats.map((stat) => (
@@ -81,7 +80,7 @@ export default function Manifesto() {
               </p>
             </motion.div>
           ))}
-        </motion.div>
+        </StaggerReveal>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 import { Reveal } from "./motion/Reveal";
+import { StaggerReveal } from "./motion/StaggerReveal";
 
 interface Short {
   id: string;
@@ -181,17 +182,15 @@ export default function ShortsSection() {
           </p>
         </Reveal>
 
-        <motion.div
+        <StaggerReveal
           variants={staggerContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          amount={0.2}
           className="grid grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-6 lg:grid-cols-5 lg:gap-8"
         >
           {shorts.map((short) => (
             <ShortCard key={short.id} short={short} />
           ))}
-        </motion.div>
+        </StaggerReveal>
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, Star } from "lucide-react";
 import { SectionWrapper } from "./SectionWrapper";
 import { GlowButton } from "./ui/GlowButton";
@@ -115,6 +115,10 @@ function ReviewCard({ review }: { review: GoogleReview }) {
 
 export default function Testimonials({ data, fallbackUrl }: TestimonialsProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  // whileInView nunca llegaba a aplicar su estado "hidden" en este proyecto
+  // (ver SectionWrapper) — usamos useInView + animate, con el mismo ref que
+  // ya usa el scroller horizontal.
+  const isReviewsInView = useInView(scrollerRef, { once: true, amount: 0.2 });
   const hasReviews = !!data && data.reviews.length > 0;
 
   const scrollByAmount = (direction: 1 | -1) => {
@@ -181,8 +185,7 @@ export default function Testimonials({ data, fallbackUrl }: TestimonialsProps) {
             <motion.div
               variants={cardContainer}
               initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
+              animate={isReviewsInView ? "show" : "hidden"}
               ref={scrollerRef}
               className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-4"
             >

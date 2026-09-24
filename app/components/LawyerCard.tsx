@@ -4,6 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { Scale, Star, Users } from "lucide-react";
 import { Reveal } from "./motion/Reveal";
+import { StaggerReveal } from "./motion/StaggerReveal";
 
 const staggerContainer: Variants = {
   hidden: {},
@@ -80,11 +81,9 @@ export default function LawyerCard() {
               Doctor en Jurisprudencia por la Pontificia Universidad Católica de Puerto Rico. Abogado admitido por la American Bar Association (ABA), especializado en Derecho de Inmigración y registrado en el EOIR eRegistry del Departamento de Justicia de los Estados Unidos, con autorización para ejercer ante el Tribunal de Inmigración.
             </p>
 
-            <motion.div
+            <StaggerReveal
               variants={staggerContainer}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.3 }}
+              amount={0.3}
               className="mb-10 flex flex-col gap-3"
             >
               {credentials.map(({ icon: Icon, text }) => (
@@ -101,17 +100,15 @@ export default function LawyerCard() {
                   <span className="text-sm text-foreground/70">{text}</span>
                 </motion.div>
               ))}
-            </motion.div>
+            </StaggerReveal>
 
             <div>
               <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-foreground/40">
                 Áreas de Práctica
               </span>
-              <motion.div
+              <StaggerReveal
                 variants={staggerContainer}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.3 }}
+                amount={0.3}
                 className="flex flex-wrap gap-2"
               >
                 {areas.map((area) => (
@@ -125,7 +122,7 @@ export default function LawyerCard() {
                     {area}
                   </motion.span>
                 ))}
-              </motion.div>
+              </StaggerReveal>
             </div>
           </Reveal>
         </div>
