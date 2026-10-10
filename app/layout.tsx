@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Montserrat } from "next/font/google";
 import CustomCursor from "./components/CustomCursor";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import SiteChrome from "./components/SiteChrome";
 import PageTransitionProvider from "./components/PageTransitionProvider";
 import "./globals.css";
 
@@ -53,9 +52,9 @@ export default function RootLayout({
         className={`${inter.variable} ${playfair.variable} ${montserrat.variable} bg-background text-foreground antialiased`}
       >
         <CustomCursor />
-        <Header />
-        <PageTransitionProvider>{children}</PageTransitionProvider>
-        <Footer />
+        <SiteChrome>
+          <PageTransitionProvider>{children}</PageTransitionProvider>
+        </SiteChrome>
       </body>
     </html>
   );

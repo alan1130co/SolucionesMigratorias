@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { GlowButton } from "./ui/GlowButton";
 
@@ -11,6 +12,7 @@ const links = [
   { label: "Inicio", href: "/#inicio" },
   { label: "Servicios", href: "/#servicios" },
   { label: "Casos", href: "/#casos" },
+  { label: "Validador", href: "/#validador" },
   { label: "Nosotros", href: "/#footer" },
   { label: "Contacto", href: "/contacto" },
 ];
@@ -29,13 +31,15 @@ const mobileLink: Variants = {
 };
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  // Con el menú móvil abierto, el header siempre adopta el estado oscuro
+  // Con el menÃº mÃ³vil abierto, el header siempre adopta el estado oscuro
   // (logo blanco, textos blancos, sin fondo claro) sin importar el scroll,
-  // para que no aparezca una barra clara sobre el overlay navy del menú.
-  const oscuro = !scrolled || isOpen;
+  // para que no aparezca una barra clara sobre el overlay navy del menÃº.
+  const isHome = pathname === "/";
+  const oscuro = isHome ? !scrolled || isOpen : isOpen;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -55,7 +59,7 @@ export default function Header() {
           : "border-b border-navy-100 bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(27,45,91,0.08)]"
       }`}
     >
-      {/* ── Scrim fijo para garantizar contraste sobre la foto del Hero ── */}
+      {/* â”€â”€ Scrim fijo para garantizar contraste sobre la foto del Hero â”€â”€ */}
       <div
         aria-hidden
         className={`pointer-events-none absolute inset-x-0 top-0 z-0 h-32.5 transition-opacity duration-300 ${
@@ -73,13 +77,13 @@ export default function Header() {
         }`}
       >
 
-        {/* ── Logo + Título flotante único ── */}
-        {/* Por debajo de `sm` solo se muestra el ícono: con el wordmark completo
-            el bloque no dejaba espacio para el botón de menú en pantallas de 320-360px. */}
+        {/* â”€â”€ Logo + TÃ­tulo flotante Ãºnico â”€â”€ */}
+        {/* Por debajo de `sm` solo se muestra el Ã­cono: con el wordmark completo
+            el bloque no dejaba espacio para el botÃ³n de menÃº en pantallas de 320-360px. */}
         <Link href="/#inicio" className="group flex min-w-0 shrink items-center gap-3 sm:shrink-0 sm:gap-5">
-          {/* Contenedor de tamaño fijo (mismo footprint que el logo original)
+          {/* Contenedor de tamaÃ±o fijo (mismo footprint que el logo original)
               con dos versiones del logo superpuestas en crossfade por opacidad,
-              según el estado oscuro/claro del header. */}
+              segÃºn el estado oscuro/claro del header. */}
           <span className="relative inline-block aspect-191/104 h-12 shrink-0 sm:h-14 lg:h-16">
             <Image
               src="/images/logo_footer.webp"
@@ -125,7 +129,7 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* ── Navegación Desktop ── */}
+        {/* â”€â”€ NavegaciÃ³n Desktop â”€â”€ */}
         <nav className="hidden items-center gap-8 lg:gap-10 md:flex">
           {links.map((link) => (
             <Link
@@ -141,21 +145,21 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* ── Toggle Móvil ── */}
+        {/* â”€â”€ Toggle MÃ³vil â”€â”€ */}
         <div className="flex items-center">
           <button
             className={`p-2 transition-colors hover:text-gold md:hidden ${
               oscuro ? "text-white" : "text-navy-900"
             }`}
             onClick={() => setIsOpen((prev) => !prev)}
-            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-label={isOpen ? "Cerrar menÃº" : "Abrir menÃº"}
           >
             {isOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
 
-      {/* ── Menú Móvil: overlay full-screen con stagger ── */}
+      {/* â”€â”€ MenÃº MÃ³vil: overlay full-screen con stagger â”€â”€ */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -194,3 +198,5 @@ export default function Header() {
     </motion.header>
   );
 }
+
+
